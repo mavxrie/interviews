@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: itw-kubectl
+  namespace: itw2
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kubectl
+        app.kubernetes.io/component: apps2
+    spec:
+      containers:
+      - name: kubectl
+        image: bitnami/kubectl:1.25.8
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+        env:
+        - name: TESTAROO
+          valueFrom: 
+            configMapKeyRef: 
+              name: configmap
+              key: testaroo
+      serviceAccountName: sa
+      volumes:
+      - name: config-volume
+        configMap:
+          name: config
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nginx

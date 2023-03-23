@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+  namespace: itw2
+data:
+  testaroo: "1"
+  script: |
+    echo "Listing pods in the namespace:"
+    kubectl get pods
+    echo
+    echo "Listing all deployments in the cluster:"
+    kubectl get deploy -A
+    echo
+    echo "Showing the configmap:"
+    kubectl get cm

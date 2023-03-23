@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: itw-nginx
+  namespace: itw
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nginx
+        app.kubernetes.io/component: apps1
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nginx
